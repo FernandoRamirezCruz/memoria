@@ -17,7 +17,7 @@ int espacio_usado=400;
 int contador=0;
 
 int ultima_particion=0;
-void ordenar_particiones(int memoria[]);
+void ordenar_particiones();
 void particion(int espacio_memoria);
 void intercambiar(int &, int&);//intercambia dos valores
 
@@ -109,6 +109,7 @@ void particion( int espacio_memoria){
 			}
 		}	
 	cout<<"Has creado "<< contador<< " particiones "<<endl;	
+	ordenar_particiones();
 }
 
 void intercambiar(int &x, int &y ){
@@ -129,7 +130,7 @@ void MENU(int memoria[], int espacio_memoria){
 		posxy(29,7);cout<<"2._ ELIMINAR DATOS "<<endl;
 		posxy(29,9);cout<<"3._ MOSTRAR DATOS "<<endl;
 		posxy(29,11);cout<<"4._ FORMETEAR"<<endl;
-		posxy(29,12);cout<<"5._ ORDENAR"<<endl;
+//		posxy(29,12);cout<<"5._ ORDENAR"<<endl;
 		posxy(29,13);cout<<"6._ SALIR "<<endl;
 		posxy(29,15);cout<<"Introduzca la opcion deseada [ ]" <<endl;
 		posxy(59,15);cin>>VALOR;
@@ -207,23 +208,17 @@ void MENU(int memoria[], int espacio_memoria){
 			cout<<"MEMORIA FORMATEADA"<<endl;
 			getch();
 			break;
-		}
+		}/*
 		case 5:{
 			ordenar_particiones(memoria);
 			system("cls");
 			break;
-		}
+		}*/
 		case 6:{
 			
 			system("cls");
 			
 			exit(1);
-			break;
-		}
-
-		default:{
-			cout<<"No has picado 5 pero igual te saco"<<endl;
-			VALORMENU++;
 			break;
 		}
 		MENU(memoria, espacio_memoria);
@@ -464,35 +459,23 @@ for(int i=0; i<espacio_memoria; i++){
 }
 
 }
-void ordenar_particiones(int m[]){
-	
-for (int i = 0; i < contador - 1; ++i) {
+void ordenar_particiones(){
+
 for (int i = 0; i < contador - 1; ++i) {
         for (int j = 0; j < contador - i - 1; ++j) {
-            if (X[j].tamanio > X[j+1].tamanio) {
-            	int a[X[j].tamanio],b[X[j+1].tamanio];
-	            
-				for(int k=0; k<X[j].tamanio; k++){
-	            	a[k]=m[ k + X[j].inicio] ;
-				}
+            
+			if (X[j].tamanio > X[j+1].tamanio) {
+         
 				
-                for(int k=0; k<X[j+1].tamanio; k++){
-	            	b[k]=m[k+X[j+1].inicio];
-				}
-							
-				intercambiar(X[j].tamanio,X[j+1].tamanio);
 				X[j].ifinal = X[j].inicio + X[j+1].tamanio;
-				X[j+1].inicio = X[j].ifinal +1;
+				X[j+1].inicio = X[j].ifinal +1;			
 				
-				for(int k=0; k<X[j].tamanio; k++){
-			    	m[k+X[j].inicio]= a[k];
-				}
+				intercambiar(X[j].tamanio,X[j+1].tamanio);
+				intercambiar(X[j].espacio_libre,X[j+1].espacio_libre);
 				
-                for(int k=0; k<X[j+1].tamanio; k++){
-	            	m[k+X[j+1].inicio]=b[k];
-				}
+				
 			}
         }
     }
 	}
-	}
+	
